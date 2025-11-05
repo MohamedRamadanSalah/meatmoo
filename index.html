@@ -7,12 +7,14 @@
     <style>
       :root {
         --primary: #8b0000; /* أحمر غامق */
-        --secondary: #E94B15; /* ذهبي/أصفر غامق */
-        --accent: #EF8A17; /* أصفر ذهبي */
+        --secondary: #E94B15; /* برتقالي */
+        --accent: #EF8A17; /* برتقالي فاتح */
         --light: #fff8dc;
         --dark: #2f1b0a;
         --success: #32cd32;
         --shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        --input-bg: #FFF5F0; /* لون خلفية فاتح متناسب */
+        --input-border: #E94B15; /* لون حدود متناسب */
       }
 
       * {
@@ -105,11 +107,11 @@
       .form-control {
         width: 100%;
         padding: 12px 15px;
-        border: 2px solid #daa520;
+        border: 2px solid var(--input-border);
         border-radius: 10px;
         font-size: 16px;
         transition: all 0.3s ease;
-        background-color: #fff8dc;
+        background-color: var(--input-bg);
       }
 
       .form-control:focus {
@@ -188,14 +190,14 @@
       }
 
       .discount-code {
-        background: linear-gradient(135deg, #ffd700, #b8860b);
-        color: #8b0000;
+        background: linear-gradient(135deg, var(--accent), var(--secondary));
+        color: white;
         padding: 15px;
         border-radius: 10px;
         margin-top: 20px;
         text-align: center;
         display: none;
-        border: 2px dashed #8b0000;
+        border: 2px dashed var(--primary);
         font-weight: bold;
         font-size: 1.2rem;
       }
