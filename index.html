@@ -1,516 +1,358 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meat Overdoes</title>
-    <style>
-      :root {
-        --primary: #8b0000; /* أحمر غامق */
-        --secondary: #E94B15; /* برتقالي */
-        --accent: #EF8A17; /* برتقالي فاتح */
-        --light: #fff8dc;
-        --dark: #2f1b0a;
-        --success: #32cd32;
-        --shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        --input-bg: #FFF5F0; /* لون خلفية فاتح متناسب */
-        --input-border: #E94B15; /* لون حدود متناسب */
-      }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meat Overdoes</title>
+  <style>
+    :root {
+      --primary: #8b0000;
+      --secondary: #E94B15;
+      --accent: #EF8A17;
+      --light: #fff8dc;
+      --dark: #2f1b0a;
+      --success: #32cd32;
+      --shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      --input-bg: #FFF5F0;
+      --input-border: #E94B15;
+    }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-      body {
-        background-color: #E73715;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    body {
+      background-color: #E73715;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 550px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      border: 2px solid var(--secondary);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: 25px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+      background-size: cover;
+    }
+
+    .card-header h2 {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+      position: relative;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header p {
+      opacity: 0.9;
+      position: relative;
+    }
+
+    .card-body {
+      padding: 30px;
+      background-color: var(--light);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid var(--input-border);
+      border-radius: 10px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background-color: var(--input-bg);
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.2);
+      outline: none;
+      background-color: white;
+    }
+
+    .form-control.error {
+      border-color: var(--primary);
+    }
+
+    .error-message {
+      color: var(--primary);
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+      font-weight: 500;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .success-message {
+      background: #d4edda;
+      color: #155724;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 20px;
+      text-align: center;
+      display: none;
+      border: 1px solid #c3e6cb;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-left-color: var(--primary);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .card-body {
         padding: 20px;
       }
-
-      .container {
-        width: 100%;
-        max-width: 550px;
-      }
-
-      .card {
-        background: white;
-        border-radius: 20px;
-        box-shadow: var(--shadow);
-        overflow: hidden;
-        transition: transform 0.3s ease;
-        border: 2px solid var(--secondary);
-      }
-
-      .card:hover {
-        transform: translateY(-5px);
-      }
-
-      .card-header {
-        background: linear-gradient(
-          135deg,
-          var(--primary) 0%,
-          var(--secondary) 100%
-        );
-        color: white;
-        padding: 25px;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .card-header::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-        background-size: cover;
-      }
-
-      .card-header h2 {
-        font-size: 1.8rem;
-        margin-bottom: 5px;
-        position: relative;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-      }
-
-      .card-header p {
-        opacity: 0.9;
-        position: relative;
-      }
-
-      .card-body {
-        padding: 30px;
-        background-color: var(--light);
-      }
-
-      .form-group {
-        margin-bottom: 20px;
-        position: relative;
-      }
-
-      .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
-        color: var(--dark);
-      }
-
-      .form-control {
-        width: 100%;
-        padding: 12px 15px;
-        border: 2px solid var(--input-border);
-        border-radius: 10px;
-        font-size: 16px;
-        transition: all 0.3s ease;
-        background-color: var(--input-bg);
-      }
-
-      .form-control:focus {
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.2);
-        outline: none;
-        background-color: white;
-      }
-
-      .form-control.error {
-        border-color: var(--primary);
-      }
-
-      .error-message {
-        color: var(--primary);
-        font-size: 14px;
-        margin-top: 5px;
-        display: none;
-        font-weight: 500;
-      }
-
-      .btn {
-        display: block;
-        width: 100%;
-        padding: 14px;
-        background: linear-gradient(to right, var(--primary), var(--secondary));
-        color: white;
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .btn::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.2),
-          transparent
-        );
-        transition: 0.5s;
-      }
-
-      .btn:hover::before {
-        left: 100%;
-      }
-
-      .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      }
-
-      .btn:active {
-        transform: translateY(0);
-      }
-
-      .success-message {
-        background: #d4edda;
-        color: #155724;
-        padding: 12px;
-        border-radius: 10px;
-        margin-top: 20px;
-        text-align: center;
-        display: none;
-        border: 1px solid #c3e6cb;
-      }
-
-      .discount-code {
-        background: linear-gradient(135deg, var(--accent), var(--secondary));
-        color: white;
-        padding: 15px;
-        border-radius: 10px;
-        margin-top: 20px;
-        text-align: center;
-        display: none;
-        border: 2px dashed var(--primary);
-        font-weight: bold;
-        font-size: 1.2rem;
-      }
-
-      .loading {
-        display: none;
-        text-align: center;
-        margin-top: 15px;
-      }
-
-      .spinner {
-        border: 4px solid rgba(0, 0, 0, 0.1);
-        border-left-color: var(--primary);
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        animation: spin 1s linear infinite;
-        margin: 0 auto;
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      @media (max-width: 576px) {
-        .card-body {
-          padding: 20px;
-        }
-      }
-    </style>
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-      <div class="card">
-        <div class="card-header">
-          <h2>Meat Overdoes</h2>
-          <p>يرجى ملء البيانات التالية</p>
-        </div>
-        <div class="card-body">
-          <form id="userForm">
-            <div class="form-group">
-              <label for="name">الاسم الكامل</label>
-              <input
-                type="text"
-                id="name"
-                class="form-control"
-                placeholder="أدخل اسمك الكامل"
-              />
-              <div class="error-message" id="nameError">
-                يرجى إدخال اسم صحيح (حرفين على الأقل)
-              </div>
-            </div>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h2>Meat Overdoes</h2>
+        <p>يرجى ملء البيانات التالية</p>
+      </div>
+      <div class="card-body">
+        <form id="userForm">
+          <div class="form-group">
+            <label for="name">الاسم الكامل</label>
+            <input type="text" id="name" class="form-control" placeholder="أدخل اسمك الكامل" />
+            <div class="error-message" id="nameError">يرجى إدخال اسم صحيح (حرفين على الأقل)</div>
+          </div>
 
-            <div class="form-group">
-              <label for="phone">رقم الهاتف</label>
-              <input
-                type="tel"
-                id="phone"
-                class="form-control"
-                placeholder="أدخل رقم هاتفك (10-15 رقم)"
-              />
-              <div class="error-message" id="phoneError">
-                يرجى إدخال رقم هاتف صحيح (10-15 رقم)
-              </div>
-            </div>
+          <div class="form-group">
+            <label for="phone">رقم الهاتف</label>
+            <input type="tel" id="phone" class="form-control" placeholder="أدخل رقم هاتفك (10-15 رقم)" />
+            <div class="error-message" id="phoneError">يرجى إدخال رقم هاتف صحيح (10-15 رقم)</div>
+          </div>
 
-            <div class="form-group">
-              <label for="favoriteItem">العنصر المفضل</label>
-              <select id="favoriteItem" class="form-control">
-                <option value="">اختر عنصرك المفضل</option>
-                <option value="تندرليون استيك">تندرليون استيك</option>
-                <option value="تاكو سلاط">تاكو سلاط</option>
-                <option value="سيزر سلاط">سيزر سلاط</option>
-                <option value="تركى ليج">تركى ليج</option>
-                <option value="ساندوتش دينميد جمبرى">
-                  ساندوتش دينميد جمبرى
-                </option>
-                <option value="موزريلا استكس">موزريلا استكس</option>
-                <option value="شبس اند دبس">شبس اند دبس</option>
-                <option value="هاف روستيد">هاف روستيد</option>
-                <option value="اجنحة دجاج">اجنحة دجاج</option>
-                <option value="ماك اند تشيز">ماك اند تشيز</option>
-                <option value="سندوتش جمبرى">سندوتش جمبرى</option>
-                <option value="مود تشكن">مود تشكن</option>
-                <option value="تشكين الاكييف">تشكين الاكييف</option>
-                <option value="كوردن بلو">كوردن بلو</option>
-                <option value="فيلى تشيز">فيلى تشيز</option>
-                <option value="مود برجر">مود برجر</option>
-                <option value="سماش برجر">سماش برجر</option>
-                <option value="سندوتش سجق">سندوتش سجق</option>
-                <option value="سندوتش برسكت">سندوتش برسكت</option>
-                <option value="سندوتش شورت ربس">سندوتش شورت ربس</option>
-                <option value="وجبه سجق">وجبه سجق</option>
-                <option value="بان كيك">بان كيك</option>
-                <option value="سماش بريسكت">سماش بريسكت</option>
-                <option value="بطاطس">بطاطس</option>
-                <option value="وجبة بريسكت">وجبة بريسكت</option>
-                <option value="وجبة ريبس">وجبة ريبس</option>
-                <option value="وجبة كوردن بلو">وجبة كوردن بلو</option>
-                <option value="وجبة الا كيف">وجبة الا كيف</option>
-                <option value="شوربة مشروم">شوربة مشروم</option>
-                <option value="شوربة سويت كورن">شوربة سويت كورن</option>
-                <option value="ارز">ارز</option>
-                <option value="ماش بوتيتو">ماش بوتيتو</option>
-                <option value="كومبو">كومبو</option>
-                <option value="مشروبات غازية">مشروبات غازية</option>
-                <option value="مانجو">مانجو</option>
-                <option value="ليمون نعناع">ليمون نعناع</option>
-                <option value="تشيكن ستربس">تشيكن ستربس</option>
-                <option value="جمبري ديناميت">جمبري ديناميت</option>
-              </select>
-              <div class="error-message" id="itemError">
-                يرجى اختيار عنصر مفضل
-              </div>
-            </div>
+          <div class="form-group">
+            <label for="favoriteItem">العنصر المفضل</label>
+            <select id="favoriteItem" class="form-control">
+              <option value="">اختر عنصرك المفضل</option>
+              <option value="تندرليون استيك">تندرليون استيك</option>
+              <option value="تاكو سلاط">تاكو سلاط</option>
+              <option value="سيزر سلاط">سيزر سلاط</option>
+              <option value="تركى ليج">تركى ليج</option>
+            </select>
+            <div class="error-message" id="itemError">يرجى اختيار عنصر مفضل</div>
+          </div>
 
-            <div class="form-group">
-              <label for="birthday">تاريخ الميلاد</label>
-              <input type="date" id="birthday" class="form-control" />
-              <div class="error-message" id="birthdayError">
-                يرجى إدخال تاريخ ميلاد صحيح
-              </div>
-            </div>
+          <div class="form-group">
+            <label for="birthday">تاريخ الميلاد</label>
+            <input type="date" id="birthday" class="form-control" />
+            <div class="error-message" id="birthdayError">يرجى إدخال تاريخ ميلاد صحيح</div>
+          </div>
 
-            <button type="submit" class="btn">تسجيل البيانات</button>
+          <button type="submit" class="btn">تسجيل البيانات</button>
 
-            <div class="loading" id="loading">
-              <div class="spinner"></div>
-              <p>جاري حفظ البيانات...</p>
-            </div>
+          <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>جاري حفظ البيانات...</p>
+          </div>
 
-            <div class="success-message" id="successMessage">
-              تم حفظ بياناتك بنجاح!
-            </div>
-            </div>
-          </form>
-        </div>
+          <div class="success-message" id="successMessage">تم حفظ بياناتك بنجاح!</div>
+        </form>
       </div>
     </div>
+  </div>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-      import {
-        getFirestore,
-        collection,
-        addDoc,
-        serverTimestamp,
-      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyB5CE6QW77VvH9NDvBEKvMrqUyGz-akwaA",
-        authDomain: "fluttercubits.firebaseapp.com",
-        projectId: "fluttercubits",
-        storageBucket: "fluttercubits.firebasestorage.app",
-        messagingSenderId: "348944430694",
-        appId: "1:348944430694:web:e228bc62e97079512b5fa7",
-        measurementId: "G-G27JY4LQ13",
-      };
+    const firebaseConfig = {
+      apiKey: "AIzaSyB5CE6QW77VvH9NDvBEKvMrqUyGz-akwaA",
+      authDomain: "fluttercubits.firebaseapp.com",
+      projectId: "fluttercubits",
+      storageBucket: "fluttercubits.firebasestorage.app",
+      messagingSenderId: "348944430694",
+      appId: "1:348944430694:web:e228bc62e97079512b5fa7",
+      measurementId: "G-G27JY4LQ13",
+    };
 
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-      // الحصول على العناصر
-      const form = document.getElementById("userForm");
-      const nameInput = document.getElementById("name");
-      const phoneInput = document.getElementById("phone");
-      const favoriteItemInput = document.getElementById("favoriteItem");
-      const birthdayInput = document.getElementById("birthday");
-      const loadingDiv = document.getElementById("loading");
-      const successMessage = document.getElementById("successMessage");
-      const discountCodeDiv = document.getElementById("discountCode");
+    const form = document.getElementById("userForm");
+    const nameInput = document.getElementById("name");
+    const phoneInput = document.getElementById("phone");
+    const favoriteItemInput = document.getElementById("favoriteItem");
+    const birthdayInput = document.getElementById("birthday");
+    const loadingDiv = document.getElementById("loading");
+    const successMessage = document.getElementById("successMessage");
 
-      // دالة إنشاء كود خصم عشوائي
-      function generateDiscountCode() {
-        const prefix = "MEAT";
-        const randomNumber = Math.floor(1000 + Math.random() * 9000); // رقم عشوائي من 1000 إلى 9999
-        return `${prefix}${randomNumber}`;
+    function validateForm() {
+      let isValid = true;
+
+      if (nameInput.value.trim().length < 2) {
+        showError(nameInput, "nameError");
+        isValid = false;
+      } else hideError(nameInput, "nameError");
+
+      const phoneRegex = /^[0-9]{10,15}$/;
+      if (!phoneRegex.test(phoneInput.value.trim())) {
+        showError(phoneInput, "phoneError");
+        isValid = false;
+      } else hideError(phoneInput, "phoneError");
+
+      if (favoriteItemInput.value === "") {
+        showError(favoriteItemInput, "itemError");
+        isValid = false;
+      } else hideError(favoriteItemInput, "itemError");
+
+      if (!birthdayInput.value) {
+        showError(birthdayInput, "birthdayError");
+        isValid = false;
+      } else hideError(birthdayInput, "birthdayError");
+
+      return isValid;
+    }
+
+    function showError(inputElement, errorId) {
+      inputElement.classList.add("error");
+      document.getElementById(errorId).style.display = "block";
+    }
+
+    function hideError(inputElement, errorId) {
+      inputElement.classList.remove("error");
+      document.getElementById(errorId).style.display = "none";
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      if (validateForm()) {
+        loadingDiv.style.display = "block";
+        successMessage.style.display = "none";
+
+        try {
+          await addDoc(collection(db, "users"), {
+            name: nameInput.value.trim(),
+            phone: phoneInput.value.trim(),
+            favoriteItem: favoriteItemInput.value,
+            birthday: birthdayInput.value,
+            timestamp: serverTimestamp(),
+          });
+
+          loadingDiv.style.display = "none";
+          successMessage.style.display = "block";
+          form.reset();
+
+          setTimeout(() => {
+            successMessage.style.display = "none";
+          }, 8000);
+        } catch (error) {
+          console.error("Error saving data: ", error);
+          alert("حدث خطأ أثناء حفظ البيانات. يرجى المحاولة مرة أخرى.");
+          loadingDiv.style.display = "none";
+        }
       }
-
-      // دالة التحقق من صحة البيانات
-      function validateForm() {
-        let isValid = true;
-
-        // التحقق من الاسم
-        if (nameInput.value.trim().length < 2) {
-          showError(nameInput, "nameError");
-          isValid = false;
-        } else {
-          hideError(nameInput, "nameError");
-        }
-
-        // التحقق من رقم الهاتف
-        const phoneRegex = /^[0-9]{10,15}$/;
-        if (!phoneRegex.test(phoneInput.value.trim())) {
-          showError(phoneInput, "phoneError");
-          isValid = false;
-        } else {
-          hideError(phoneInput, "phoneError");
-        }
-
-        // التحقق من العنصر المفضل
-        if (favoriteItemInput.value === "") {
-          showError(favoriteItemInput, "itemError");
-          isValid = false;
-        } else {
-          hideError(favoriteItemInput, "itemError");
-        }
-
-        // التحقق من تاريخ الميلاد
-        if (!birthdayInput.value) {
-          showError(birthdayInput, "birthdayError");
-          isValid = false;
-        } else {
-          hideError(birthdayInput, "birthdayError");
-        }
-
-        return isValid;
-      }
-
-      // دالة لإظهار رسالة الخطأ
-      function showError(inputElement, errorId) {
-        inputElement.classList.add("error");
-        document.getElementById(errorId).style.display = "block";
-      }
-
-      // دالة لإخفاء رسالة الخطأ
-      function hideError(inputElement, errorId) {
-        inputElement.classList.remove("error");
-        document.getElementById(errorId).style.display = "none";
-      }
-
-      // معالجة إرسال النموذج
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        if (validateForm()) {
-          loadingDiv.style.display = "block";
-          successMessage.style.display = "none";
-          discountCodeDiv.style.display = "none";
-
-          try {
-            // إنشاء كود الخصم العشوائي
-            const discountCode = generateDiscountCode();
-
-            // حفظ البيانات في Firebase
-            await addDoc(collection(db, "users"), {
-              name: nameInput.value.trim(),
-              phone: phoneInput.value.trim(),
-              favoriteItem: favoriteItemInput.value,
-              birthday: birthdayInput.value,
-              discountCode: discountCode, // حفظ كود الخصم
-              timestamp: serverTimestamp(),
-            });
-
-            // إظهار رسالة النجاح وكود الخصم
-            loadingDiv.style.display = "none";
-            successMessage.style.display = "block";
-            discountCodeDiv.style.display = "block";
-            discountCodeDiv.innerHTML = `
-              <h3>مبروك! لقد حصلت على كود خصم</h3>
-              <p style="font-size: 1.5rem; margin: 10px 0;">${discountCode}</p>
-              <p>يمكنك استخدام هذا الكود للحصول على خصم في مطعم Meat Overdoes</p>
-            `;
-
-            // إعادة تعيين النموذج
-            form.reset();
-
-            // إخفاء رسالة النجاح وكود الخصم بعد 10 ثوانٍ
-            setTimeout(() => {
-              successMessage.style.display = "none";
-              discountCodeDiv.style.display = "none";
-            }, 10000);
-          } catch (error) {
-            console.error("Error saving data: ", error);
-            alert(
-              "حدث خطأ أثناء حفظ البيانات. يرجى المحاولة مرة أخرى. الخطأ: " +
-                error.message
-            );
-            loadingDiv.style.display = "none";
-          }
-        }
-      });
-
-      // إضافة التحقق أثناء الكتابة
-      nameInput.addEventListener("input", () => {
-        if (nameInput.value.trim().length >= 2) {
-          hideError(nameInput, "nameError");
-        }
-      });
-
-      phoneInput.addEventListener("input", () => {
-        const phoneRegex = /^[0-9]{10,15}$/;
-        if (phoneRegex.test(phoneInput.value.trim())) {
-          hideError(phoneInput, "phoneError");
-        }
-      });
-
-      favoriteItemInput.addEventListener("change", () => {
-        if (favoriteItemInput.value !== "") {
-          hideError(favoriteItemInput, "itemError");
-        }
-      });
-
-      birthdayInput.addEventListener("change", () => {
-        if (birthdayInput.value) {
-          hideError(birthdayInput, "birthdayError");
-        }
-      });
-    </script>
+    });
+  </script>
 </body>
 </html>
